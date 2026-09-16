@@ -1,0 +1,72 @@
+module tb_two_bit_multiplier;
+
+    reg [1:0] a;
+    reg [1:0] b;
+    wire [3:0] p;
+
+    two_bit_multiplier uut (
+        .a(a),
+        .b(b),
+        .p(p)
+    );
+
+    initial begin
+      
+      $dumpfile("multiplier.vcd");
+        $dumpvars(0, tb_two_bit_multiplier);
+
+        $monitor("a = %b, b = %b, product = %b", a, b, p);
+
+        a = 2'b00; b = 2'b00;
+        #10;
+
+        a = 2'b00; b = 2'b01;
+        #10;
+
+        a = 2'b00; b = 2'b10;
+        #10;
+
+        a = 2'b00; b = 2'b11;
+        #10;
+
+        a = 2'b01; b = 2'b00;
+        #10;
+
+        a = 2'b01; b = 2'b01;
+        #10;
+
+        a = 2'b01; b = 2'b10;
+        #10;
+
+        a = 2'b01; b = 2'b11;
+        #10;
+
+        a = 2'b10; b = 2'b00;
+        #10;
+
+        a = 2'b10; b = 2'b01;
+        #10;
+
+        a = 2'b10; b = 2'b10;
+        #10;
+
+        a = 2'b10; b = 2'b11;
+        #10;
+
+        a = 2'b11; b = 2'b00;
+        #10;
+
+        a = 2'b11; b = 2'b01;
+        #10;
+
+        a = 2'b11; b = 2'b10;
+        #10;
+
+        a = 2'b11; b = 2'b11;
+        #10;
+
+        $finish;
+    end
+
+endmodule
+

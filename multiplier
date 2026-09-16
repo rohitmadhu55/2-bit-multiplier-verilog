@@ -1,0 +1,54 @@
+
+module half_add(
+    input A,
+    input B,
+    output sum,
+    output carry
+);
+    xor(sum, A, B);
+    and(carry, A, B);
+endmodule
+
+
+module two_bit_multiplier(
+    input [1:0] a,
+    input [1:0] b,
+    output [3:0] p
+);
+
+    wire w1, w2, w3;
+    wire w4, w5;
+    wire sum1, sum2;
+
+    // P0
+    assign p[0] = a[0] & b[0];
+
+    // P1
+    and(w1, a[1], b[0]);
+    and(w2, a[0], b[1]);
+
+    half_add add1(
+        .A(w1),
+        .B(w2),
+        .sum(sum1),
+        .carry(w3)
+    );
+
+    assign p[1] = sum1;
+
+    // P2
+    and(w4, a[1], b[1]);
+
+    half_add add2(
+        .A(w4),
+        .B(w3),
+        .sum(sum2),
+        .carry(w5)
+    );
+
+    assign p[2] = sum2;
+
+    // P3
+    assign p[3] = w5;
+
+endmodule
